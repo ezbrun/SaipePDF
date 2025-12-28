@@ -148,7 +148,7 @@ def split_pdfs(
             label = f"{start}" if start == end else f"{start}-{end}"
 
             if consolidate:
-                if consolidated_writer and writer.get_num_pages() > 0:
+                if consolidated_writer and len(writer.pages) > 0:
                     if parent_outline is None:
                         parent_outline = consolidated_writer.add_outline_item(
                             title=file["name"], page_number=range_start_page
@@ -159,7 +159,7 @@ def split_pdfs(
                         parent=parent_outline,
                     )
             else:
-                if writer.get_num_pages() > 0:
+                if len(writer.pages) > 0:
                     writer.add_outline_item(title=f"{file['name']} - páginas {label}", page_number=0)
                     filename = f"{base_name}_p{label}.pdf"
                     buf = io.BytesIO()
